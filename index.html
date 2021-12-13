@@ -37,12 +37,14 @@
 
     <nav id="navbar" class="navbar">
       <ul>
-        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-        <li><a class="nav-link scrollto" href="#about">About</a></li>
-        <li><a class="nav-link scrollto" href="#resume">Resume</a></li>
-        <li><a class="nav-link scrollto" href="#services">Services</a></li>
-        <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-        <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+        <li><a class="nav-link scrollto active" href="#hero">Home (trzeba to zmienić)</a></li>
+        <li><a class="nav-link scrollto" href="#about">Podstawowe informacje</a></li>
+        <li><a class="nav-link scrollto" href="#quiz1">Quiz</a></li>
+        <li><a class="nav-link scrollto" href="#resume">Ciekawostki o kulturze</a></li>
+        <li><a class="nav-link scrollto" href="#services">Nie wiem</a></li>
+    	<li><a class="nav-link scrollto" href="#quiz2">Quiz 2</a></li>
+        <li><a class="nav-link scrollto " href="#portfolio">Zdjęcia</a></li>
+        <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="#">Drop Down 1</a></li>
             <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -58,8 +60,8 @@
             <li><a href="#">Drop Down 3</a></li>
             <li><a href="#">Drop Down 4</a></li>
           </ul>
-        </li>
-        <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </li>-->
+        <li><a class="nav-link scrollto" href="#contact">Nie wiem</a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
@@ -172,7 +174,7 @@
 
       </div>
     </section><!-- End About Me Section -->
-    <section id="quzi1" class="quzi1">
+    <section id="quiz1" class="quiz1">
     	<div class="container">
     		<div class="section-title">
     			<span>Quiz</span>
@@ -584,7 +586,18 @@
 
       </div>
     </section>--><!-- End Pricing Section -->
-
+    <section id="quiz" class="quiz">
+    	<div class="container">
+    		<div class="section-title">
+    			<span>Quiz</span>
+    			<h2>Drugi quiz - sprawdź swoją wiedzę</h2>
+    			<p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
+    		</div>
+    		<div id="quiz2"></div>
+			<button id="submit2">Wyślij Quiz</button>
+			<div id="results2"></div>
+    	</div>
+    </section>
     <!-- ======= Contact Me Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -813,6 +826,116 @@
 		buildQuiz();
 		// on submit, show results
 		submitButton.addEventListener('click', showResults);
+
+		//drugi quiz
+
+		const myQuestions2 = [
+		  {
+		    question: "x2Pytanie 1?",
+		    answers: {
+		      a: "Odp a",
+		      b: "Odp b",
+		      c: "Odp c"
+		    },
+		    correctAnswer: "a"
+		  },
+		  {
+		    question: "x2Pytanie 2",
+		    answers: {
+		      a: "Odp a",
+		      b: "Odp b",
+		      c: "Odp c"
+		    },
+		    correctAnswer: "a"
+		  },
+		  {
+		    question: "x2Pytanie 3",
+		    answers: {
+		      a: "Odp a",
+		      b: "Odp b",
+		      c: "Odp c",
+		      d: "Odp d"
+		    },
+		    correctAnswer: "a"
+		  }
+		];
+
+		const quizContainer2 = document.getElementById('quiz2');
+		const resultsContainer2 = document.getElementById('results2');
+		const submitButton2 = document.getElementById('submit2');
+
+		function buildQuiz2(){
+		  // variable to store the HTML output
+		  const output = [];
+
+		  // for each question...
+		  myQuestions2.forEach(
+		    (currentQuestion, questionNumber) => {
+
+		      // variable to store the list of possible answers
+		      const answers = [];
+
+		      // and for each available answer...
+		      for(letter in currentQuestion.answers){
+
+		        // ...add an HTML radio button
+		        answers.push(
+		          `<label>
+		            <input type="radio" name="question${questionNumber}" value="${letter}">
+		            ${letter} :
+		            ${currentQuestion.answers[letter]}
+		          </label><br/>`
+		        );
+		      }
+
+		      // add this question and its answers to the output
+		      output.push(
+		        `<div class="question"> ${currentQuestion.question} </div>
+		        <div class="answers"> ${answers.join('')} </div>`
+		      );
+		    }
+		  );
+
+		  // finally combine our output list into one string of HTML and put it on the page
+		  quizContainer2.innerHTML = output.join('');
+		}
+
+		function showResults2(){
+
+		  // gather answer containers from our quiz
+		  const answerContainers = quizContainer2.querySelectorAll('.answers');
+
+		  // keep track of user's answers
+		  let numCorrect = 0;
+
+		  // for each question...
+		  myQuestions2.forEach( (currentQuestion, questionNumber) => {
+
+		    // find selected answer
+		    const answerContainer = answerContainers[questionNumber];
+		    const selector = `input[name=question${questionNumber}]:checked`;
+		    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+		    // if answer is correct
+		    if(userAnswer === currentQuestion.correctAnswer){
+		      // add to the number of correct answers
+		      numCorrect++;
+
+		      // color the answers green
+		      answerContainers[questionNumber].style.color = 'lightgreen';
+		    }
+		    // if answer is wrong or blank
+		    else{
+		      // color the answers red
+		      answerContainers[questionNumber].style.color = 'red';
+		    }
+		  });
+
+		  // show number of correct answers out of total
+		  resultsContainer2.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+		}
+		buildQuiz2();
+		submitButton2.addEventListener('click', showResults2);
 
 	</script>
 </body>

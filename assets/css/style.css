@@ -294,7 +294,8 @@ h1, h2, h3, h4, h5, h6 {
 #hero h1 {
   margin: 0 0 10px 0;
   font-size: 64px;
-  font-family: "Satisfy", serif;
+  /*font-family: "Satisfy", serif;*/
+  font-family: "Open Sans", serif;
   color: #fff;
 }
 #hero h2 {
@@ -1178,4 +1179,28 @@ section {
 }
 #footer .credits {
   font-size: 13px;
+}
+
+/*moje dodatki*/
+
+#submit, #submit2{
+  background-color: #f1bb4e;
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.1em 0.1em 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border:0.16em solid rgba(255,255,255,0);
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Open Sans',sans-serif,;
+  font-weight:600;
+  color:#FFFFFF;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  text-align:center;
+  transition: all 0.2s;
+  display: block;
 }
